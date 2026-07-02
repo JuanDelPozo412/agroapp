@@ -1,4 +1,4 @@
-# CampoBalance — Guía de instalación y arquitectura
+# AgroApp — Guía de instalación y arquitectura
 
 ## 1. Arquitectura recomendada
 
@@ -8,122 +8,132 @@ Pediste MVC, y está bien como base, pero el MVC clásico (Modelo-Vista-Controla
 Routes  →  Controller  →  Service  →  Repository (Modelo / ORM)  →  Postgres
 ```
 
-- **Routes**: define los endpoints (`/api/campanas`, `/api/lotes`, etc.) y qué controlador atiende cada uno.
+- **Routes**: define los endpoints (`/api/campanas`, `/api/lotes`, etc.) y qué función atiende cada uno.
 - **Controller**: recibe el request, valida lo básico, llama al service, devuelve la respuesta HTTP. No tiene lógica de negocio.
 - **Service**: la lógica real (calcular márgenes, validar reglas de negocio, orquestar varias tablas). Acá vive el "cómo se calcula el margen por hectárea", por ejemplo.
-- **Repository / Modelo**: el acceso a datos, vía ORM (Prisma).
+- **Repository / Modelo**: el acceso a datos, vía ORM (SQLAlchemy).
 
 Esto sigue siendo "MVC" en espíritu (el front es tu "Vista", separado en otro proyecto), pero te evita controladores gigantes y hace que la lógica de negocio sea testeable sin levantar un servidor HTTP.
 
-**Backend**: Node.js + Express + Prisma (ORM) + PostgreSQL.
-**Frontend**: Next.js (React) + JavaScript (sin TypeScript, como pediste).
+**Backend**: Python + Flask + SQLAlchemy (ORM) + PostgreSQL.
+**Frontend**: Next.js (React) + JavaScript (sin TypeScript).
 
-Elijo **Prisma** sobre Sequelize porque las migraciones son más simples de mantener y el cliente generado evita errores de tipeo en los nombres de campos, aunque el proyecto sea JS puro.
+Elijo **SQLAlchemy** como ORM porque es el estándar de Python para bases relacionales, tiene soporte excelente para PostgreSQL y se integra muy bien con Flask vía `Flask-SQLAlchemy`.
+
+---
 
 ## 2. Software a instalar (una sola vez en tu máquina)
 
-### Node.js
-Necesitás Node.js 20 LTS o superior (incluye npm).
+### Python
+Necesitás Python 3.11 o superior.
 
-- **Windows/Mac**: descargá el instalador desde https://nodejs.org (elegí la versión "LTS").
-- **Linux (Ubuntu/Debian)**:
-```bash
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-```
+- **Windows**: descargá el instalador desde https://www.python.org/downloads/ — durante la instalación tildá **"Add Python to PATH"**.
 
 Verificá:
 ```bash
-node -v
-npm -v
+python --version
+pip --version
 ```
 
 ### PostgreSQL
-- **Windows/Mac**: instalador desde https://www.postgresql.org/download/ (o Postgres.app en Mac).
-- **Linux (Ubuntu/Debian)**:
-```bash
-sudo apt install -y postgresql postgresql-contrib
-```
+- **Windows**: instalador desde https://www.postgresql.org/download/
 
-Verificá que el servicio esté corriendo:
-```bash
-sudo service postgresql status
-```
+Verificá que el servicio esté corriendo y creá la base en pgAdmin:
+- Click derecho en **Databases → Create → Database**
+- Nombre: `agroapp`
+- Click en **Save**
 
-Creá la base de datos y un usuario para el proyecto:
-```bash
-sudo -u postgres psql
-```
-Dentro de la consola de psql:
-```sql
-CREATE DATABASE campobalance;
-CREATE USER campobalance_user WITH ENCRYPTED PASSWORD 'elegiUnaClave';
-GRANT ALL PRIVILEGES ON DATABASE campobalance TO campobalance_user;
-\q
-```
-
-> Alternativa más simple si no querés instalar Postgres localmente: usar **Docker** con `docker run --name campobalance-db -e POSTGRES_PASSWORD=elegiUnaClave -e POSTGRES_DB=campobalance -p 5432:5432 -d postgres:16`. Solo necesitás tener Docker Desktop instalado.
-
-### Git (si todavía no lo tenés)
+### Git
 ```bash
 git --version
 ```
 Si no está, instalalo desde https://git-scm.com.
+
+---
 
 ## 3. Estructura del proyecto
 
 Un monorepo simple con dos carpetas, backend y frontend separados pero en el mismo repositorio:
 
 ```
-campobalance/
+agroapp/
 ├── backend/
-│   ├── prisma/
-│   │   └── schema.prisma
-│   ├── src/
+│   ├── venv/                  ← entorno virtual Python
+│   ├── app/
+│   │   ├── __init__.py
 │   │   ├── routes/
 │   │   ├── controllers/
 │   │   ├── services/
-│   │   ├── middlewares/
-│   │   └── app.js
+│   │   ├── models/
+│   │   └── config.py
 │   ├── .env
-│   └── package.json
+│   ├── .gitignore
+│   └── requirements.txt
 └── frontend/
-    ├── app/  (o pages/)
-    ├── components/
+    ├── src/
+    │   ├── app/
+    │   └── components/
     └── package.json
 ```
 
+---
+
 ## 4. Levantar el backend
 
+### Crear el entorno virtual
 ```bash
-mkdir campobalance && cd campobalance
-mkdir backend && cd backend
-npm init -y
-npm install express cors dotenv
-npm install prisma --save-dev
-npm install @prisma/client
-npx prisma init
+cd agroapp/backend
+python -m venv venv
 ```
 
-Esto crea `prisma/schema.prisma` y un `.env`. Editá el `.env`:
+### Activar el entorno virtual
+- **Windows**:
+```bash
+venv\Scripts\activate
 ```
-DATABASE_URL="postgresql://campobalance_user:elegiUnaClave@localhost:5432/campobalance"
+- **Mac/Linux**:
+```bash
+source venv/bin/activate
+```
+
+Cuando el entorno esté activo vas a ver `(venv)` al inicio de la línea en la terminal.
+
+### Instalar dependencias
+```bash
+pip install flask flask-sqlalchemy flask-cors psycopg2-binary python-dotenv flask-migrate
+```
+
+### Guardar las dependencias instaladas
+```bash
+pip freeze > requirements.txt
+```
+
+Así cualquier persona que clone el proyecto puede instalar todo con:
+```bash
+pip install -r requirements.txt
+```
+
+### Crear el .env
+Creá un archivo `.env` dentro de `backend/` con esto:
+```
+DATABASE_URL=postgresql://postgres:TU_CONTRASEÑA@localhost:5432/agroapp
+FLASK_ENV=development
 PORT=4000
 ```
 
-Para correr el servidor en desarrollo con reinicio automático:
+### Crear el .gitignore en backend/
 ```bash
-npm install --save-dev nodemon
+echo venv/ > .gitignore
+echo .env >> .gitignore
+echo __pycache__/ >> .gitignore
+echo *.pyc >> .gitignore
 ```
-Y en `package.json` agregá:
-```json
-"scripts": {
-  "dev": "nodemon src/app.js"
-}
-```
+
+---
 
 ## 5. Levantar el frontend
 
+Asegurate de estar en la carpeta raíz `agroapp/` y ejecutá:
 ```bash
 cd ..
 npx create-next-app@latest frontend
@@ -131,10 +141,13 @@ npx create-next-app@latest frontend
 
 Cuando pregunte:
 - TypeScript → **No**
-- ESLint → Sí
-- Tailwind CSS → Sí (para mantener el estilo del prototipo)
-- App Router → Sí
-- Import alias → dejá el default
+- ESLint → **Yes**
+- Tailwind CSS → **Yes**
+- `src/` directory → **Yes**
+- App Router → **Yes**
+- Turbopack → **Yes**
+- React Compiler → **No**
+- Import alias → **No** (dejá el default)
 
 Después:
 ```bash
@@ -142,11 +155,15 @@ cd frontend
 npm run dev
 ```
 
+Abrí `http://localhost:3000` — si ves la página default de Next.js, está todo bien.
+
+---
+
 ## 6. Próximo paso
 
-Una vez que tengas Node, Postgres (o el contenedor de Docker) y los dos proyectos creados con `npm install` corrido sin errores, avisame y seguimos con:
+Una vez que tengas el entorno virtual activo, las dependencias instaladas y el frontend corriendo, seguimos con:
 
-1. El `schema.prisma` con los modelos (Campaña, Lote, Gasto, Ingreso, Documento).
-2. Las migraciones (`npx prisma migrate dev`).
+1. Los modelos de SQLAlchemy (Campaña, Lote, Gasto, Ingreso, Documento).
+2. Las migraciones con Flask-Migrate.
 3. Las rutas, controladores y services del backend.
-4. La conexión del frontend Next.js a la API.
+4. La conexión del frontend Next.js a la API Flask.
