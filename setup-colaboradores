@@ -1,0 +1,195 @@
+# AgroApp — Guía para colaboradores
+
+Esta guía es para quienes se suman al proyecto y necesitan levantar el entorno en su máquina desde cero.
+
+---
+
+## 1. Requisitos previos
+
+Instalá esto antes de arrancar:
+
+- **Python 3.11+** → https://www.python.org/downloads/ (tildá "Add Python to PATH" durante la instalación)
+- **Node.js 20 LTS+** → https://nodejs.org
+- **PostgreSQL** → https://www.postgresql.org/download/
+- **Git** → https://git-scm.com
+- **pgAdmin** (viene incluido con el instalador de PostgreSQL en Windows)
+
+Verificá que todo esté instalado:
+```bash
+python --version
+node -v
+npm -v
+git --version
+```
+
+---
+
+## 2. Clonar el repositorio
+
+```bash
+git clone https://github.com/TU_USUARIO/agroapp.git
+cd agroapp
+```
+
+---
+
+## 3. Crear la base de datos
+
+Abrí **pgAdmin**, conectate al servidor local y creá la base de datos:
+
+- Click derecho en **Databases → Create → Database**
+- Nombre: `agroapp`
+- Click en **Save**
+
+---
+
+## 4. Levantar el backend
+
+### Entrar a la carpeta
+```bash
+cd backend
+```
+
+### Crear el entorno virtual
+```bash
+python -m venv venv
+```
+
+### Activar el entorno virtual
+- **Windows**:
+```bash
+venv\Scripts\activate
+```
+- **Mac/Linux**:
+```bash
+source venv/bin/activate
+```
+
+Cuando esté activo vas a ver `(venv)` al inicio de la línea en la terminal.
+
+### Instalar dependencias
+```bash
+pip install -r requirements.txt
+```
+
+### Crear el archivo .env
+Creá un archivo `.env` dentro de `backend/` con este contenido (el `.env` no se sube al repo por seguridad, cada uno crea el suyo):
+
+```
+DATABASE_URL=postgresql://postgres:TU_CONTRASEÑA@localhost:5432/agroapp
+FLASK_ENV=development
+PORT=4000
+```
+
+Reemplazá `TU_CONTRASEÑA` por la contraseña que pusiste al instalar PostgreSQL.
+
+### Correr las migraciones
+```bash
+flask db upgrade
+```
+
+### Levantar el servidor
+```bash
+flask run
+```
+
+El backend va a estar corriendo en `http://localhost:4000`.
+
+---
+
+## 5. Levantar el frontend
+
+### Abrir otra terminal y entrar a la carpeta
+```bash
+cd frontend
+```
+
+### Instalar dependencias
+```bash
+npm install
+```
+
+### Crear el archivo .env.local
+Creá un archivo `.env.local` dentro de `frontend/` con este contenido:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
+### Levantar el servidor
+```bash
+npm run dev
+```
+
+El frontend va a estar corriendo en `http://localhost:3000`.
+
+---
+
+## 6. Flujo de trabajo con Git
+
+El proyecto tiene estas ramas principales:
+
+- `main` → código estable, lo que va a producción. **No pushear directo acá.**
+- `develop-flor` → rama de desarrollo de Flor
+- `develop-juan` → rama de desarrollo de Juan
+
+Cada uno trabaja en su rama:
+```bash
+git checkout develop-TU_NOMBRE
+```
+
+Antes de arrancar a trabajar cada día, actualizá tu rama con los últimos cambios de `main`:
+```bash
+git pull origin main
+```
+
+Cuando terminés una funcionalidad, hacé commit y push a tu rama:
+```bash
+git add .
+git commit -m "feat: descripción de lo que hiciste"
+git push origin develop-TU_NOMBRE
+```
+
+Y abrís un **Pull Request** en GitHub de tu rama hacia `main` para que el otro revise antes de mergear.
+
+---
+
+## 7. Estructura del proyecto
+
+```
+agroapp/
+├── backend/
+│   ├── venv/                  ← entorno virtual (no se sube al repo)
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── models/
+│   │   └── config.py
+│   ├── .env                   ← cada uno crea el suyo (no se sube al repo)
+│   ├── .gitignore
+│   └── requirements.txt
+└── frontend/
+    ├── src/
+    │   ├── app/
+    │   └── components/
+    ├── .env.local             ← cada uno crea el suyo (no se sube al repo)
+    └── package.json
+```
+
+---
+
+## 8. Problemas comunes
+
+**Error de conexión a la base de datos**
+→ Verificá que PostgreSQL esté corriendo y que la contraseña en el `.env` sea correcta.
+
+**`flask` no se reconoce como comando**
+→ Asegurate de tener el entorno virtual activado (`(venv)` tiene que aparecer en la terminal).
+
+**`npm install` falla**
+→ Verificá que tenés Node.js 20+ instalado con `node -v`.
+
+**Puerto ocupado**
+→ Si el 4000 o el 3000 ya están en uso, cambiá el puerto en el `.env` y en el comando de Next.js.
