@@ -1,0 +1,106 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f4;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 20px;
+}
+
+.brandIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #4d7c2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1f2921;
+  line-height: 1.1;
+}
+
+.brandSub {
+  font-size: 0.75rem;
+  color: #7c8a7d;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.navItem:hover {
+  background: #f0f2ef;
+}
+
+.navItemActive {
+  background: #4d7c2f;
+  color: #ffffff;
+}
+
+.navIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seasonBox {
+  margin-top: auto;
+  background: #f4f6f4;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.seasonLabel {
+  font-size: 0.75rem;
+  color: #7c8a7d;
+  margin-bottom: 2px;
+}
+
+.seasonValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2921;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
