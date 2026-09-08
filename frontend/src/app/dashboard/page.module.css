@@ -9,12 +9,12 @@
 .title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #1f2921;
+  color: var(--app-text);
 }
 
 .subtitle {
   font-size: 0.9rem;
-  color: #7c8a7d;
+  color: var(--app-muted);
   margin-top: 2px;
 }
 
@@ -26,8 +26,8 @@
 }
 
 .summaryCard {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
   border-radius: 12px;
   padding: 20px 22px;
 }
@@ -40,13 +40,13 @@
 
 .summaryLabel {
   font-size: 0.85rem;
-  color: #4b5563;
+  color: var(--app-text);
   font-weight: 600;
 }
 
 .summarySub {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--app-muted);
   margin-top: 2px;
 }
 
@@ -54,8 +54,8 @@
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: #eaf3e2;
-  color: #4d7c2f;
+  background: var(--app-primary-soft);
+  color: var(--app-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,12 +65,12 @@
 .summaryValue {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #1f2921;
+  color: var(--app-text);
   margin: 12px 0 12px;
 }
 
 .summaryRows {
-  border-top: 1px solid #eef0ee;
+  border-top: 1px solid var(--app-border);
   padding-top: 10px;
   display: flex;
   flex-direction: column;
@@ -81,12 +81,12 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.85rem;
-  color: #4b5563;
+  color: var(--app-muted);
 }
 
 .summaryRow.total {
   font-weight: 700;
-  color: #1f2921;
+  color: var(--app-text);
 }
 
 .neg {
@@ -105,8 +105,8 @@
 }
 
 .chartCard {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
   border-radius: 12px;
   padding: 20px 22px;
   min-height: 340px;
@@ -121,7 +121,7 @@
 .chartTitle {
   font-size: 1rem;
   font-weight: 700;
-  color: #1f2921;
+  color: var(--app-text);
   margin-bottom: 16px;
 }
 
@@ -130,7 +130,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: var(--app-muted);
   font-size: 0.9rem;
 }
 
@@ -163,13 +163,13 @@
 }
 
 .actionGreen {
-  background: #4d7c2f;
+  background: var(--app-primary);
 }
 
 .actionDark {
-  background: #1f2921;
+  background: var(--app-action-dark);
 }
 
 .actionTeal {
-  background: #14876f;
+  background: var(--app-primary-hover);
 }
