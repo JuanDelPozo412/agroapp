@@ -1,0 +1,141 @@
+.page {
+  padding: 32px 40px 48px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f2921;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #7c8a7d;
+  margin-top: 6px;
+}
+
+.primaryButton {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 18px;
+  color: #ffffff;
+  background: #5aa900;
+  box-shadow: 0 8px 18px rgba(90, 169, 0, 0.22);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.primaryButton:hover {
+  background: #4d9600;
+}
+
+.filterBar {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(31, 41, 33, 0.05);
+}
+
+.select {
+  width: min(250px, 100%);
+  min-height: 38px;
+  border: 1px solid #dfe3df;
+  border-radius: 6px;
+  padding: 0 14px;
+  color: #1f2921;
+  background: #ffffff;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.select:focus {
+  border-color: #5aa900;
+  box-shadow: 0 0 0 3px rgba(90, 169, 0, 0.13);
+}
+
+.totalText {
+  color: #4b5563;
+  font-size: 0.85rem;
+}
+
+.totalText strong {
+  color: #1f2921;
+}
+
+.emptyState {
+  min-height: 268px;
+  border: 2px dashed #d8d4d0;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(31, 41, 33, 0.04);
+}
+
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a7a19b;
+  background: #f1f1f1;
+  margin-bottom: 18px;
+}
+
+.emptyState h2 {
+  color: #1f2921;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.emptyState p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 24px 18px 36px;
+  }
+
+  .header,
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryButton,
+  .select {
+    width: 100%;
+  }
+}
