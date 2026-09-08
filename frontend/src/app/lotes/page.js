@@ -1,3 +1,4 @@
+import DashboardLayout from "../dashboard/layout";
 import styles from "./page.module.css";
 
 function PinIcon() {
@@ -38,7 +39,7 @@ function PlusIcon() {
   );
 }
 
-export default function LotesPage() {
+function LotesContent() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -73,5 +74,13 @@ export default function LotesPage() {
         <p>Crea tu primer lote para empezar</p>
       </section>
     </div>
+  );
+}
+
+export default function LotesPage() {
+  return (
+    <DashboardLayout>
+      <LotesContent />
+    </DashboardLayout>
   );
 }

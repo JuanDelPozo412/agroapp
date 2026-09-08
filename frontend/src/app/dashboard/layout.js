@@ -7,7 +7,7 @@ import styles from "./layout.module.css";
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: "grid" },
   { label: "Campañas", href: "/dashboard/campanas", icon: "leaf" },
-  { label: "Lotes", href: "/dashboard/lotes", icon: "pin" },
+  { label: "Lotes", href: "/lotes", icon: "pin" },
   { label: "Gastos", href: "/dashboard/gastos", icon: "down" },
   { label: "Ingresos", href: "/dashboard/ingresos", icon: "up" },
 ];
