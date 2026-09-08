@@ -6,10 +6,30 @@ import { usePathname } from "next/navigation";
 import styles from "./AppShell.module.css";
 
 const themeOptions = [
-  { id: "campo", label: "Campo", color: "#4d7c2f" },
-  { id: "tierra", label: "Tierra", color: "#9a6734" },
-  { id: "cielo", label: "Cielo", color: "#0f766e" },
-  { id: "noche", label: "Noche", color: "#334155" },
+  {
+    id: "blancoNegro",
+    label: "Blanco y negro",
+    color: "#303030",
+    colors: ["#0f0f0f", "#303030", "#85878a", "#d8d8d8", "#f7f7f7"],
+  },
+  {
+    id: "earthyElegance",
+    label: "Earthy Elegance",
+    color: "#34302c",
+    colors: ["#12100f", "#34302c", "#85878a", "#d7c3ad", "#f4f4f4"],
+  },
+  {
+    id: "greenSerenity",
+    label: "Green Serenity",
+    color: "#3f6244",
+    colors: ["#a8cfaa", "#8fba98", "#739b78", "#3f6244", "#0e2113"],
+  },
+  {
+    id: "prettyPink",
+    label: "Pretty in Pink",
+    color: "#d86299",
+    colors: ["#d86299", "#e978ae", "#e9b8b2", "#b5bea2", "#719d8c"],
+  },
 ];
 
 const navItems = [
@@ -77,7 +97,7 @@ function NavIcon({ name }) {
 
 export default function AppShell({ children }) {
   const pathname = usePathname();
-  const [theme, setTheme] = useState("campo");
+  const [theme, setTheme] = useState("greenSerenity");
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("campobalance-theme");
@@ -91,9 +111,7 @@ export default function AppShell({ children }) {
     }
   }, []);
 
-  const handleThemeChange = (event) => {
-    const nextTheme = event.target.value;
-
+  const handleThemeChange = (nextTheme) => {
     setTheme(nextTheme);
     window.localStorage.setItem("campobalance-theme", nextTheme);
   };
@@ -128,25 +146,30 @@ export default function AppShell({ children }) {
           ))}
         </nav>
 
-        <label className={styles.themePicker}>
+        <section className={styles.themePicker} aria-label="Elegir tema">
           <span>Tema</span>
-          <select value={theme} onChange={handleThemeChange}>
+
+          <div className={styles.paletteList}>
             {themeOptions.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <div className={styles.swatches} aria-hidden="true">
-            {themeOptions.map((option) => (
-              <span
+              <button
                 key={option.id}
-                className={theme === option.id ? styles.swatchActive : ""}
-                style={{ background: option.color }}
-              />
+                type="button"
+                className={`${styles.paletteButton} ${
+                  theme === option.id ? styles.paletteButtonActive : ""
+                }`}
+                onClick={() => handleThemeChange(option.id)}
+                aria-pressed={theme === option.id}
+                aria-label={`Tema ${option.label}`}
+              >
+                <span
+                  className={styles.paletteDot}
+                  style={{ background: option.color }}
+                  aria-hidden="true"
+                />
+              </button>
             ))}
           </div>
-        </label>
+        </section>
 
         <div className={styles.seasonBox}>
           <div className={styles.seasonLabel}>Temporada actual</div>

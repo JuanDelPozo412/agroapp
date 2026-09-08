@@ -17,47 +17,56 @@
   background: var(--app-bg);
 }
 
-.themecampo {
+.themeblancoNegro {
+  --app-bg: #f6f6f6;
+  --app-surface-muted: #eeeeee;
+  --app-border: #d8d8d8;
+  --app-text: #151515;
+  --app-muted: #6f7377;
+  --app-primary: #303030;
+  --app-primary-hover: #0f0f0f;
+  --app-primary-soft: #e8e8e8;
+  --app-shadow: rgba(15, 15, 15, 0.18);
+  --app-action-dark: #0f0f0f;
 }
 
-.themetierra {
-  --app-bg: #f7f3ee;
-  --app-surface-muted: #f3ebe2;
-  --app-border: #e7dccf;
-  --app-text: #2d241c;
-  --app-muted: #817267;
-  --app-primary: #9a6734;
-  --app-primary-hover: #805326;
-  --app-primary-soft: #f2e3d2;
-  --app-shadow: rgba(154, 103, 52, 0.22);
-  --app-action-dark: #3b2f25;
+.themeearthyElegance {
+  --app-bg: #f5f2ee;
+  --app-surface-muted: #eee5dc;
+  --app-border: #dccfbe;
+  --app-text: #231f1b;
+  --app-muted: #777879;
+  --app-primary: #34302c;
+  --app-primary-hover: #12100f;
+  --app-primary-soft: #eadbc9;
+  --app-shadow: rgba(52, 48, 44, 0.22);
+  --app-action-dark: #12100f;
 }
 
-.themecielo {
-  --app-bg: #eef7f6;
-  --app-surface-muted: #e4f1ef;
-  --app-border: #d2e7e3;
-  --app-text: #163331;
-  --app-muted: #687f7b;
-  --app-primary: #0f766e;
-  --app-primary-hover: #0c5f59;
-  --app-primary-soft: #d8f3ef;
-  --app-shadow: rgba(15, 118, 110, 0.22);
-  --app-action-dark: #173f3b;
+.themegreenSerenity {
+  --app-bg: #f1f6f1;
+  --app-surface-muted: #e4eee5;
+  --app-border: #d1dfd2;
+  --app-text: #0e2113;
+  --app-muted: #667568;
+  --app-primary: #3f6244;
+  --app-primary-hover: #0e2113;
+  --app-primary-soft: #d8eadb;
+  --app-shadow: rgba(63, 98, 68, 0.22);
+  --app-action-dark: #0e2113;
 }
 
-.themenoche {
-  --app-bg: #101820;
-  --app-surface: #17212b;
-  --app-surface-muted: #202c37;
-  --app-border: #2d3a46;
-  --app-text: #edf5ee;
-  --app-muted: #aab8ae;
-  --app-primary: #5f8f3f;
-  --app-primary-hover: #6ea449;
-  --app-primary-soft: #263a28;
-  --app-shadow: rgba(95, 143, 63, 0.24);
-  --app-action-dark: #2d3a46;
+.themeprettyPink {
+  --app-bg: #fbf2f6;
+  --app-surface-muted: #f4e3ea;
+  --app-border: #e8cbd6;
+  --app-text: #35242b;
+  --app-muted: #7c7277;
+  --app-primary: #d86299;
+  --app-primary-hover: #b94d7f;
+  --app-primary-soft: #f3d5e3;
+  --app-shadow: rgba(216, 98, 153, 0.24);
+  --app-action-dark: #719d8c;
 }
 
 .sidebar {
@@ -141,42 +150,50 @@
 
 .themePicker {
   display: grid;
-  gap: 8px;
+  gap: 9px;
   margin-bottom: 14px;
   color: var(--app-muted);
   font-size: 0.75rem;
 }
 
-.themePicker select {
-  width: 100%;
-  min-height: 34px;
-  border: 1px solid var(--app-border);
-  border-radius: 8px;
-  padding: 0 10px;
-  color: var(--app-text);
-  background: var(--app-surface);
-  outline: none;
+.paletteList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.themePicker select:focus {
+.paletteButton {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--app-border);
+  border-radius: 50%;
+  padding: 4px;
+  background: var(--app-surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    transform 0.16s ease;
+}
+
+.paletteButton:hover {
+  transform: translateY(-1px);
+}
+
+.paletteButtonActive {
   border-color: var(--app-primary);
   box-shadow: 0 0 0 3px var(--app-primary-soft);
 }
 
-.swatches {
-  display: flex;
-  gap: 7px;
-}
-
-.swatches span {
+.paletteDot {
   width: 18px;
   height: 18px;
-  border: 2px solid transparent;
+  flex: 0 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 50%;
-}
-
-.swatches .swatchActive {
-  border-color: var(--app-text);
 }
 
 .seasonBox {
