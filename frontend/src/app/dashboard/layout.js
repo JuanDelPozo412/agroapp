@@ -1,11 +1,15 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./layout.module.css";
 
 const navItems = [
-  { label: "Dashboard", active: true, icon: "grid" },
-  { label: "Campañas", icon: "leaf" },
-  { label: "Lotes", icon: "pin" },
-  { label: "Gastos", icon: "down" },
-  { label: "Ingresos", icon: "up" },
+  { label: "Dashboard", href: "/dashboard", icon: "grid" },
+  { label: "Campañas", href: "/dashboard/campanas", icon: "leaf" },
+  { label: "Lotes", href: "/dashboard/lotes", icon: "pin" },
+  { label: "Gastos", href: "/dashboard/gastos", icon: "down" },
+  { label: "Ingresos", href: "/dashboard/ingresos", icon: "up" },
 ];
 
 function NavIcon({ name }) {
@@ -64,6 +68,8 @@ function NavIcon({ name }) {
 }
 
 export default function DashboardLayout({ children }) {
+  const pathname = usePathname();
+
   return (
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
@@ -79,18 +85,18 @@ export default function DashboardLayout({ children }) {
 
         <nav className={styles.nav}>
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href="#"
+              href={item.href}
               className={`${styles.navItem} ${
-                item.active ? styles.navItemActive : ""
+                pathname === item.href ? styles.navItemActive : ""
               }`}
             >
               <span className={styles.navIcon}>
                 <NavIcon name={item.icon} />
               </span>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
