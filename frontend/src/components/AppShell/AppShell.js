@@ -106,7 +106,7 @@ export default function AppShell({ children }) {
             <NavIcon name="leaf" />
           </div>
           <div>
-            <div className={styles.brandName}>CampoBalance</div>
+            <div className={styles.brandName}>AgroApp</div>
             <div className={styles.brandSub}>Gestión Agrícola</div>
           </div>
         </div>
