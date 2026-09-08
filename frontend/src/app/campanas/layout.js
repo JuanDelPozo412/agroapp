@@ -67,7 +67,7 @@ function NavIcon({ name }) {
   }
 }
 
-export default function DashboardLayout({ children }) {
+export default function CampanasLayout({ children }) {
   const pathname = usePathname();
 
   return (
