@@ -8,8 +8,8 @@ const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: "grid" },
   { label: "Campañas", href: "/campanas", icon: "leaf" },
   { label: "Lotes", href: "/lotes", icon: "pin" },
-  { label: "Gastos", href: "/dashboard/gastos", icon: "down" },
-  { label: "Ingresos", href: "/dashboard/ingresos", icon: "up" },
+  { label: "Gastos", href: "/gastos", icon: "down" },
+  { label: "Ingresos", href: "/ingresos", icon: "up" },
 ];
 
 function NavIcon({ name }) {

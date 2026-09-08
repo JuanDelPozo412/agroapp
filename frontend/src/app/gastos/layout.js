@@ -67,7 +67,7 @@ function NavIcon({ name }) {
   }
 }
 
-export default function LotesLayout({ children }) {
+export default function GastosLayout({ children }) {
   const pathname = usePathname();
 
   return (
