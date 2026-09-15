@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from app.config import Config
 
 
+
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -15,5 +16,8 @@ def create_app():
     migrate.init_app(app, db)
 
     from app.models import temporada, lote, campania, campania_lote, categoria_gasto, gasto, ingreso
+    from app.routes.lote_routes import lote_bp
+    
+    app.register_blueprint(lote_bp)
 
     return app

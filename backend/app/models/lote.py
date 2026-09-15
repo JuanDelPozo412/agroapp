@@ -8,3 +8,11 @@ class Lote(db.Model):
     hectareas = db.Column(db.Numeric(10, 2), nullable=False, default=0)
     ubicacion = db.Column(db.Text)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    to_dict = lambda self: {
+        "id": self.id,
+        "nombre": self.nombre,
+        "hectareas": float(self.hectareas),
+        "ubicacion": self.ubicacion,
+        "created_at": self.created_at.isoformat() if self.created_at else None   
+    }
